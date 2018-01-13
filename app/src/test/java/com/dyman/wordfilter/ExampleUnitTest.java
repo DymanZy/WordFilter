@@ -27,10 +27,8 @@ public class ExampleUnitTest {
 
         String text = "法轮功和毒品在中国是被禁止的。";
         readBadWord();
-        List<String> result = stringSearch.findAll(text);
-        for (String s : result) {
-            System.out.println(s);
-        }
+//        findAll(text);
+        findFirst(text);
 
         System.out.println("耗时： " + (System.currentTimeMillis() - time));
     }
@@ -44,5 +42,17 @@ public class ExampleUnitTest {
         }
 
         stringSearch.setKeywords(list);
+    }
+
+    private void findAll(String text) {
+        List<String> result = stringSearch.findAll(text);
+        for (String s : result) {
+            System.out.println(s);
+        }
+    }
+
+    private void findFirst(String text) {
+        String filterWord = stringSearch.findFirst(text);
+        System.out.println(filterWord == null ? "没有敏感词" : "第一个敏感词： " + filterWord);
     }
 }
