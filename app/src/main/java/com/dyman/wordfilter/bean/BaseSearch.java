@@ -7,17 +7,18 @@ import java.util.List;
 
 /**
  * Created by dyman on 2018/1/13.
+ * 敏感词搜索类的基类
  */
 
 public class BaseSearch {
 
     protected TrieNode _root = new TrieNode();
-    protected  TrieNode[] _first = new TrieNode[TrieNode.CHAR_MAX_VALUE + 1];
+    protected  TrieNode[] _first = new TrieNode[Character.MAX_VALUE + 1];
 
     /** 设置关键字 */
     public void setKeywords(List<String> keywords) {
 
-        TrieNode[] first = new TrieNode[TrieNode.CHAR_MAX_VALUE + 1];
+        TrieNode[] first = new TrieNode[Character.MAX_VALUE + 1];
         TrieNode root = new TrieNode();
 
         for(String item : keywords) {
@@ -34,7 +35,6 @@ public class BaseSearch {
             tn.setResults(item);
         }
         this._first = first;
-
 
         HashMap<TrieNode, TrieNode> links = new HashMap<>();
         for (char c : root.m_value.keySet()) {

@@ -12,7 +12,26 @@ import java.util.List;
 public class StringSearch extends BaseSearch {
 
     public String findFirst(String text) {
-        return "";
+        TrieNode ptr = null;
+        for(char t : text.toCharArray()) {
+            TrieNode tn;
+            if (ptr == null) {
+                tn = _first[t];
+            } else {
+                tn = ptr.tryGetValue(t);
+                if (tn == null) {
+                    tn = _first[t];
+                }
+            }
+
+            if (tn != null) {
+                if (tn.isEnd) {
+                    return tn.getResults().get(0);
+                }
+            }
+            ptr = tn;
+        }
+        return null;
     }
 
     public List<String> findAll(String text) {
@@ -43,11 +62,35 @@ public class StringSearch extends BaseSearch {
     }
 
     public boolean containsAny(String text) {
+        TrieNode ptr = null;
+        for(char t : text.toCharArray()) {
+            TrieNode tn;
+            if (ptr == null) {
+                tn = _first[t];
+            } else {
+                tn = ptr.tryGetValue(t);
+                if (tn == null) {
+                    tn = _first[t];
+                }
+            }
+
+            if (tn != null) {
+                if (tn.isEnd) {
+                    return true;
+                }
+            }
+            ptr = tn;
+        }
         return false;
     }
 
     public String replace(String text) {
-        return "";
+        return replace(text, '*');
+    }
+
+    //  TODO: 将文本中的敏感词替换为 replaceChar
+    public String replace(String text, char replaceChar) {
+        return text;
     }
 
 }
