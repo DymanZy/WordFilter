@@ -2,7 +2,7 @@
 
 current branch is fuzzysearch.
 
-try pushing to master branch.
+try pushing to master branch. New add on smart branch.
 
 modify on smartsearch branch.
 
