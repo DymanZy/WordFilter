@@ -1,13 +1,12 @@
 package com.dyman.wordfilter.internal;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by dyman on 2018/1/13.
- * 字典树结构体
+ * 有穷状态机的节点结构体， 穷举65536个char是否是某个敏感词的开头
  */
 
 public class TrieNode {
@@ -31,10 +30,6 @@ public class TrieNode {
             }
         }
         return null;
-    }
-
-    public Collection<TrieNode> transitions() {
-        return m_value.values();
     }
 
     public TrieNode add(char c) {

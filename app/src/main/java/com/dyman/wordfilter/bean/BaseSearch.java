@@ -48,7 +48,7 @@ public class BaseSearch {
         _root = root;
     }
 
-    private void tryLinks(TrieNode node, TrieNode node2, HashMap<TrieNode, TrieNode> links) {
+    public void tryLinks(TrieNode node, TrieNode node2, HashMap<TrieNode, TrieNode> links) {
         for (char c : node.m_value.keySet()) {
             TrieNode tn = null;
             if (node2 == null) {

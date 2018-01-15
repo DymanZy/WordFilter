@@ -11,6 +11,30 @@ import java.math.BigDecimal;
 
 public class WordHelper {
 
+    /** 检测是否含有中文 */
+    public static boolean isContainChinese(String text) {
+        char[] charArray = text.toCharArray();
+        int length = charArray.length;
+        for (int i = 0; i < length; i++) {
+            if ((charArray[i] >= 0x4e00) && (charArray[i] <= 0x9fbb)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /** 检测是否全为中文 */
+    public static boolean isAllChinese(String text) {
+        char[] charArray = text.toCharArray();
+        int length = charArray.length;
+        for (int i = 0; i < length; i++) {
+            if (charArray[i] < 0x4e00 || charArray[i] > 0x9fbb) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     /** 半角转全角 */
     public static String toSBC(String text) {
         StringBuilder sb = new StringBuilder(text);
