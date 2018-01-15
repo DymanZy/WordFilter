@@ -11,6 +11,7 @@ import java.util.List;
 
 public class StringSearch extends BaseSearch {
 
+    /** 找出文本中第一个敏感词 */
     public String findFirst(String text) {
         TrieNode ptr = null;
         for(char t : text.toCharArray()) {
@@ -34,6 +35,7 @@ public class StringSearch extends BaseSearch {
         return null;
     }
 
+    /** 找出文本中所有的敏感词 */
     public List<String> findAll(String text) {
         TrieNode ptr = null;
         List<String> list = new ArrayList<>();
@@ -61,6 +63,7 @@ public class StringSearch extends BaseSearch {
         return list;
     }
 
+    /** 检查文本是否含有敏感词 */
     public boolean containsAny(String text) {
         TrieNode ptr = null;
         for(char t : text.toCharArray()) {
@@ -84,13 +87,43 @@ public class StringSearch extends BaseSearch {
         return false;
     }
 
+    /** 将文本中的敏感词替换为'*' */
     public String replace(String text) {
         return replace(text, '*');
     }
 
-    //  TODO: 将文本中的敏感词替换为 replaceChar
+    /** 将文本中的敏感词替换为 replaceChar */
     public String replace(String text, char replaceChar) {
-        return text;
+        StringBuilder sb = new StringBuilder(text);
+        boolean isChanged = false;
+        TrieNode ptr = null;
+
+        int length = text.toCharArray().length;
+        for (int i = 0; i < length; i++) {
+            char t = text.toCharArray()[i];
+            TrieNode tn;
+            if (ptr == null) {
+                tn = _first[t];
+            } else {
+                tn = ptr.tryGetValue(t);
+                if (tn == null) {
+                    tn = _first[t];
+                }
+            }
+
+            if (tn != null) {
+                if (tn.isEnd) {
+                    isChanged = true;
+                    int maxLength = tn.getResults().get(0).length();
+                    int start = i + 1 - maxLength;
+                    for (int j = start; j <= i; j++) {
+                        sb.setCharAt(j, replaceChar);
+                    }
+                }
+            }
+            ptr = tn;
+        }
+        return isChanged == true ? sb.toString() : null;
     }
 
 }
