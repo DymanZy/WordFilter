@@ -2,7 +2,8 @@ package com.dyman.wordfilter.util;
 
 import com.dyman.wordfilter.internal.Dict;
 
-import java.math.BigDecimal;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by dyman on 2018/1/13.
@@ -10,6 +11,15 @@ import java.math.BigDecimal;
  */
 
 public class WordHelper {
+
+    /** 过滤特殊字符 */
+    public static String stringFilter(String text) {
+        String regEx = "[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？_]";
+        Pattern pattern = Pattern.compile(regEx);
+        Matcher matcher = pattern.matcher(text);
+
+        return matcher.replaceAll("").trim();
+    }
 
     /** 检测是否含有中文 */
     public static boolean isContainChinese(String text) {
