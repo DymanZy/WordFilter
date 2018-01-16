@@ -21,23 +21,23 @@ public class FilterManager {
     private BaseSearch baseSearch;
     private Context mContext;
     private List<String> badWordList;
-    public enum FilterType {Base, /*Fuzzy*/}
+    public enum Type {BASE, /*FUZZY*/}
 
     private static FilterManager instance = null;
-    public synchronized static FilterManager getInstance(Context context, FilterType type) {
+    public synchronized static FilterManager getInstance(Context context, Type type) {
         if (instance == null) {
             instance = new FilterManager(context, type);
         }
         return instance;
     }
 
-    private FilterManager(Context context, FilterType type) {
+    private FilterManager(Context context, Type type) {
         this.mContext = context;
         switch (type) {
-            case Base:
+            case BASE:
                 baseSearch = new StringSearch();
                 break;
-//            case Fuzzy:
+//            case FUZZY:
 //                baseSearch = new FuzzySearch();
 //                break;
         }
