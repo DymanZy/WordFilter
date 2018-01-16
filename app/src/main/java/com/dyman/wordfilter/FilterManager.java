@@ -1,16 +1,12 @@
 package com.dyman.wordfilter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.util.Log;
 
-import com.dyman.wordfilter.bean.BaseSearch;
-import com.dyman.wordfilter.bean.FuzzySearch;
-import com.dyman.wordfilter.bean.StringSearch;
+import com.dyman.wordfilter.search.BaseSearch;
+import com.dyman.wordfilter.search.StringSearch;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -21,51 +17,52 @@ import java.util.List;
  */
 
 public class FilterManager {
-    private static final String TAG = "FilterManager";
-    private static Context mContext;
-    private BaseSearch baseSearch;
 
-    public enum FilterType {Base, Fuzzy}
+    private BaseSearch baseSearch;
+    private Context mContext;
+    private List<String> badWordList;
+    public enum FilterType {Base, /*Fuzzy*/}
 
     private static FilterManager instance = null;
     public synchronized static FilterManager getInstance(Context context, FilterType type) {
         if (instance == null) {
-            mContext = context;
-            instance = new FilterManager(type);
+            instance = new FilterManager(context, type);
         }
         return instance;
     }
 
-    private FilterManager(FilterType type) {
+    private FilterManager(Context context, FilterType type) {
+        this.mContext = context;
         switch (type) {
             case Base:
                 baseSearch = new StringSearch();
                 break;
-            case Fuzzy:
-                baseSearch = new FuzzySearch();
-                break;
+//            case Fuzzy:
+//                baseSearch = new FuzzySearch();
+//                break;
         }
     }
 
-    /** 默认加载自带敏感词组 */
+    /** 加载默认敏感词组 */
     public void loadDefaultKeyWords() {
+        badWordList = new ArrayList<>();
         InputStream is = mContext.getResources().openRawResource(R.raw.badword);
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         try {
-            List<String> mlist = new ArrayList<>();
             String line;
             while((line = reader.readLine()) != null) {
-                mlist.add(line);
+                badWordList.add(line);
             }
-            setKeyWords(mlist);
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e(TAG, "Failure to load default KeyWords.");
+            Log.e(GlobalConfig.TAG, "Failure to load default KeyWords.");
         }
+
+        baseSearch.setKeywords(badWordList);
     }
 
-    /** 自定义设置敏感词词组 */
-    public void setKeyWords(List<String> list) {
+    /** 加载自定义敏感词词组 */
+    public void loadCustomKeyWords(List<String> list) {
         baseSearch.setKeywords(list);
     }
 
@@ -88,6 +85,5 @@ public class FilterManager {
     public String replace(String text, char replaceChar) {
         return baseSearch.replace(text, replaceChar);
     }
-
 
 }

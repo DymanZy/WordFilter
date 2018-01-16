@@ -1,6 +1,10 @@
-package com.dyman.wordfilter.bean;
+package com.dyman.wordfilter.search;
 
+import android.util.Log;
+
+import com.dyman.wordfilter.GlobalConfig;
 import com.dyman.wordfilter.internal.TrieNode;
+import com.dyman.wordfilter.util.WordHelper;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,16 +17,22 @@ import java.util.List;
 public abstract class BaseSearch {
 
     protected TrieNode _root = new TrieNode();
-    protected  TrieNode[] _first = new TrieNode[Character.MAX_VALUE + 1];
+    protected TrieNode[] _first = new TrieNode[Character.MAX_VALUE + 1];
+    private boolean isLoadKeywords = false;
 
     /** 设置关键字 */
     public void setKeywords(List<String> keywords) {
+        if (isLoadKeywords) {
+            Log.e(GlobalConfig.TAG, "already load keywords.");
+            return;
+        }
 
         TrieNode[] first = new TrieNode[Character.MAX_VALUE + 1];
         TrieNode root = new TrieNode();
 
         for(String item : keywords) {
             if (item == null || item == "") continue;
+            item = WordHelper.stringFilter(item);
 
             TrieNode tn = _first[item.toCharArray()[0]];
             if (tn == null) {
@@ -46,6 +56,7 @@ public abstract class BaseSearch {
         }
 
         this._root = root;
+        isLoadKeywords = true;
     }
 
     public void tryLinks(TrieNode node, TrieNode node2, HashMap<TrieNode, TrieNode> links) {

@@ -1,4 +1,4 @@
-package com.dyman.wordfilter.bean;
+package com.dyman.wordfilter.search;
 
 import com.dyman.wordfilter.internal.TrieNode;
 import com.dyman.wordfilter.util.WordHelper;

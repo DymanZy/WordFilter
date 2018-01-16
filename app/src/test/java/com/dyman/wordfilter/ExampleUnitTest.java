@@ -1,15 +1,11 @@
 package com.dyman.wordfilter;
 
-import android.util.Log;
-
-import com.dyman.wordfilter.bean.StringSearch;
+import com.dyman.wordfilter.search.StringSearch;
 
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
