@@ -25,7 +25,7 @@ public class ExampleUnitTest {
 
         long time = System.currentTimeMillis();
 
-        String text = "法轮功和毒品在中国是被禁止的。";
+        String text = "法?轮/功和毒品在中国是被禁止的。";
         readBadWord();
 //        findAll(text);
 //        findFirst(text);

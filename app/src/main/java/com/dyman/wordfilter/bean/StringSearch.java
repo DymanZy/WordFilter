@@ -1,6 +1,7 @@
 package com.dyman.wordfilter.bean;
 
 import com.dyman.wordfilter.internal.TrieNode;
+import com.dyman.wordfilter.util.WordHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,10 @@ import java.util.List;
 public class StringSearch extends BaseSearch {
 
     /** 找出文本中第一个敏感词 */
+    @Override
     public String findFirst(String text) {
+        text = WordHelper.stringFilter(text);
+
         TrieNode ptr = null;
         for(char t : text.toCharArray()) {
             TrieNode tn;
@@ -36,7 +40,10 @@ public class StringSearch extends BaseSearch {
     }
 
     /** 找出文本中所有的敏感词 */
+    @Override
     public List<String> findAll(String text) {
+        text = WordHelper.stringFilter(text);
+
         TrieNode ptr = null;
         List<String> list = new ArrayList<>();
 
@@ -64,7 +71,10 @@ public class StringSearch extends BaseSearch {
     }
 
     /** 检查文本是否含有敏感词 */
+    @Override
     public boolean containsAny(String text) {
+        text = WordHelper.stringFilter(text);
+
         TrieNode ptr = null;
         for(char t : text.toCharArray()) {
             TrieNode tn;
@@ -88,12 +98,16 @@ public class StringSearch extends BaseSearch {
     }
 
     /** 将文本中的敏感词替换为'*' */
+    @Override
     public String replace(String text) {
         return replace(text, '*');
     }
 
     /** 将文本中的敏感词替换为 replaceChar */
+    @Override
     public String replace(String text, char replaceChar) {
+        text = WordHelper.stringFilter(text);
+
         StringBuilder sb = new StringBuilder(text);
         boolean isChanged = false;
         TrieNode ptr = null;

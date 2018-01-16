@@ -10,7 +10,7 @@ import java.util.List;
  * 敏感词搜索类的基类
  */
 
-public class BaseSearch {
+public abstract class BaseSearch {
 
     protected TrieNode _root = new TrieNode();
     protected  TrieNode[] _first = new TrieNode[Character.MAX_VALUE + 1];
@@ -45,7 +45,7 @@ public class BaseSearch {
             item.merge(links.get(item), links);
         }
 
-        _root = root;
+        this._root = root;
     }
 
     public void tryLinks(TrieNode node, TrieNode node2, HashMap<TrieNode, TrieNode> links) {
@@ -65,5 +65,11 @@ public class BaseSearch {
             tryLinks(node.m_value.get(c), tn, links);
         }
     }
+
+    public abstract String findFirst(String text);
+    public abstract List<String> findAll(String text);
+    public abstract boolean containsAny(String text);
+    public abstract String replace(String text);
+    public abstract String replace(String text, char replaceChar);
 
 }
