@@ -22,10 +22,8 @@ instance.replace(text, '*');
 如果你想使用自己的敏感词库，请使用
 
 ```java
-instance.loadCustomKeyWords(keyWordList);
+instance.loadCustomKeyWords(yourkeyWordList);
 ```
-
-每个敏感词为一个String，存入List\<String\>
 
 #### Theory
 
