@@ -1,6 +1,6 @@
 # WordFilter
 
-####Introduction
+#### Introduction
 
 一个基于DFA实现的轻量级敏感词过滤库
 
