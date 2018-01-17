@@ -85,5 +85,4 @@ public class FilterManager {
     public String replace(String text, char replaceChar) {
         return baseSearch.replace(text, replaceChar);
     }
-
 }

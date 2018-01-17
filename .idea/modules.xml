@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/WordFilter.iml" filepath="$PROJECT_DIR$/WordFilter.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wordfilter/wordfilter.iml" filepath="$PROJECT_DIR$/wordfilter/wordfilter.iml" />
     </modules>
   </component>
 </project>
