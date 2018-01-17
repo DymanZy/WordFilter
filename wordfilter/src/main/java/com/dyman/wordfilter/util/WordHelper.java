@@ -1,5 +1,7 @@
 package com.dyman.wordfilter.util;
 
+import com.dyman.wordfilter.internal.Dict;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -73,11 +75,31 @@ public class WordHelper {
 
     /** 转为繁体中文 */
     public static String toTraditionalChinese(String text) {
-        return text;
+        StringBuilder sb = new StringBuilder(text);
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.toCharArray()[i];
+            if (c >= 0x4e00 && c <= 0x9fa5) {
+                char k = Dict.Traditional.toCharArray()[c - 0x4e00];
+                if (k != c) {
+                    sb.setCharAt(i, k);
+                }
+            }
+        }
+        return sb.toString();
     }
 
     /** 转为简体中文 */
     public static String toSimplifiedChinese(String text) {
-        return text;
+        StringBuilder sb = new StringBuilder(text);
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.toCharArray()[i];
+            if (c >= 0x4e00 && c <= 0x9fa5) {
+                char k = Dict.Simplified.toCharArray()[c - 0x4e00];
+                if (k != c) {
+                    sb.setCharAt(i, k);
+                }
+            }
+        }
+        return sb.toString();
     }
 }
