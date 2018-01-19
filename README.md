@@ -6,6 +6,27 @@
 
 #### Usage
 
+1.在根目录下的build.gradle添加：
+
+```java
+allprojects {
+  repositories {
+    ...
+    maven { url 'https://www.jitpack.io' }
+  }
+}
+```
+
+2.添加依赖
+
+```java
+dependencies {
+  compile 'com.github.DymanZy:WordFilter:1.0'
+}
+```
+
+3.使用
+
 ```java
 FilterManager instance = FilterManager.getInstance(mContext, FilterManager.Type.BASE);
 
@@ -24,8 +45,4 @@ instance.replace(text, '*');
 ```java
 instance.loadCustomKeyWords(yourkeyWordList);
 ```
-
-#### Theory
-
-待补充
 
